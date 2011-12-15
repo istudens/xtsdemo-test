@@ -29,6 +29,11 @@ The test starts up the AS, deploys the XTS Demo App into it and runs a reservati
 restaurant/theatre/taxi seats using both AtomicTransaction and BusinessActivity tx type.
 
 
+--- Requirements:
+1. apache maven tool
+2. xts demo built in /XTS/xts-install/demo dir
+
+
 --- Steps to run:
 
 1. git clone git@github.com:istudens/xtsdemo-test.git

@@ -19,7 +19,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package xtsdemotest;
+package org.jboss.jbossts.xts.demotest;
 
 import static org.jboss.arquillian.ajocado.Ajocado.elementPresent;
 import static org.jboss.arquillian.ajocado.Ajocado.name;
@@ -88,7 +88,6 @@ public class XTSDemoTest {
 
     protected XPathLocator RESULT_TABLE_TITLE_XP = xp("/html/body/table[2]/tbody/tr/td[4]/form/table[1]/tbody/tr[2]/td[2]");
     protected XPathLocator RESULT_TABLE_CONTENT_XP = xp("/html/body/table[2]/tbody/tr/td[4]/form/table[1]/tbody/tr[3]/td[2]");
-//    protected XPathLocator RESULT_TABLE_CONTENT_XP = xp("/html/body/table[2]/tbody/tr/td[4]/form/table[1]/tbody/tr[3]/td[2]/div/font/p");
 
 
     @Deployment(name = XTS_DEMO_ARCHIVE, testable = false)
