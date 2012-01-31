@@ -3,7 +3,7 @@
 
     <container qualifier="jboss" default="true">
         <configuration>
-            <property name="serverConfig">standalone-xts.xml</property>
+            <property name="serverConfig">../../docs/examples/configs/standalone-xts.xml</property>
         </configuration>
     </container>
     <extension qualifier="ajocado">
