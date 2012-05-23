@@ -21,13 +21,13 @@
  */
 package org.jboss.jbossts.xts.demotest;
 
-import static org.jboss.arquillian.ajocado.Ajocado.elementPresent;
-import static org.jboss.arquillian.ajocado.Ajocado.name;
-import static org.jboss.arquillian.ajocado.Ajocado.waitForHttp;
-import static org.jboss.arquillian.ajocado.Ajocado.waitModel;
-import static org.jboss.arquillian.ajocado.Ajocado.xp;
+import static org.jboss.arquillian.ajocado.Graphene.elementPresent;
+import static org.jboss.arquillian.ajocado.Graphene.name;
+import static org.jboss.arquillian.ajocado.Graphene.waitForHttp;
+import static org.jboss.arquillian.ajocado.Graphene.waitModel;
+import static org.jboss.arquillian.ajocado.Graphene.xp;
 
-import org.jboss.arquillian.ajocado.framework.AjaxSelenium;
+import org.jboss.arquillian.ajocado.framework.GrapheneSelenium;
 import org.jboss.arquillian.ajocado.locator.NameLocator;
 import org.jboss.arquillian.ajocado.locator.XPathLocator;
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -70,7 +70,7 @@ public class XTSDemoTest {
 
     // load ajocado driver
     @Drone
-    AjaxSelenium driver;
+    GrapheneSelenium driver;
 
     // Load context path to the test
     @ArquillianResource
@@ -86,8 +86,8 @@ public class XTSDemoTest {
 
     protected NameLocator SUBMIT_BUTTON = name("submit");
 
-    protected XPathLocator RESULT_TABLE_TITLE_XP = xp("/html/body/table[2]/tbody/tr/td[4]/form/table[1]/tbody/tr[2]/td[2]");
-    protected XPathLocator RESULT_TABLE_CONTENT_XP = xp("/html/body/table[2]/tbody/tr/td[4]/form/table[1]/tbody/tr[3]/td[2]");
+    protected XPathLocator RESULT_TABLE_TITLE_XP = xp("//div[@class='result_title']");
+    protected XPathLocator RESULT_TABLE_CONTENT_XP = xp("//div[@class='result']");
 
 
     @Deployment(name = XTS_DEMO_ARCHIVE, testable = false)
