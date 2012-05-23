@@ -10,11 +10,17 @@
     <packaging>jar</packaging>
 
     <properties>
-        <version.jbossas>7.1.0.Final-SNAPSHOT</version.jbossas>
-        <version.arquillian.junit>1.0.0.CR7</version.arquillian.junit>
-        <version.arquillian.drone>1.0.0.CR3</version.arquillian.drone>
+        <version.jbossas>7.1.1.Final</version.jbossas>
+        <version.arquillian.junit>1.0.0.Final</version.arquillian.junit>
+        <version.arquillian.drone>1.0.0.Final</version.arquillian.drone>
         <version.arquillian.ajocado.junit>1.0.0.CR2</version.arquillian.ajocado.junit>
         <version.junit>4.8.2</version.junit>
+
+        <jvm.args.ip>-Djava.net.preferIPv4Stack=true -Djava.net.preferIPv6Addresses=false</jvm.args.ip>
+        <jvm.args.ip.server>${jvm.args.ip}</jvm.args.ip.server>
+        <jvm.args.ip.client>${jvm.args.ip}</jvm.args.ip.client>
+        <node0>127.0.0.1</node0>
+        <surefire.forked.process.timeout>1200</surefire.forked.process.timeout>
     </properties>
 
     <dependencyManagement>
@@ -38,18 +44,6 @@
             <type>pom</type>
             <scope>provided</scope>
         </dependency>
-
-        <dependency>
-            <groupId>org.jboss.remoting3</groupId>
-            <artifactId>jboss-remoting</artifactId>
-            <version>3.2.0.CR9</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.jboss.logging</groupId>
-            <artifactId>jboss-logging</artifactId>
-            <version>3.1.0.CR2</version>
-        </dependency>       
 
         <dependency>
             <groupId>junit</groupId>
@@ -131,6 +125,31 @@
                     </filesets>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.11</version>
+                <configuration>
+                    <redirectTestOutputToFile>true</redirectTestOutputToFile>
+                    <enableAssertions>true</enableAssertions>
+                    <!--<workingDirectory>${basedir}/target/workdir</workingDirectory> &lt;!&ndash; Work in submodule's own dir. &ndash;&gt;-->
+
+                    <!-- Forked process timeout -->
+                    <forkedProcessTimeoutInSeconds>${surefire.forked.process.timeout}</forkedProcessTimeoutInSeconds>
+                    <!-- System properties to forked surefire JVM which runs clients. -->
+                    <argLine>${jvm.args.ip.client}</argLine>
+
+                    <!-- System properties passed to test cases -->
+                    <systemPropertyVariables>
+                        <node0>${node0}</node0>
+                        <!--
+                            Used in arquillian.xml - arguments for all JBoss AS instances.
+                            System properties are duplicated here until ARQ-647 is implemented.
+                        -->
+                        <server.jvm.args>${jvm.args.ip.server} -Djboss.bind.address=${node0} -Djboss.bind.address.management=${node0}</server.jvm.args>
+                    </systemPropertyVariables>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 
@@ -148,6 +167,15 @@
                     <scope>test</scope>
                 </dependency>
             </dependencies>
+        </profile>
+
+        <profile>
+            <id>ipv6</id>
+            <activation><property><name>ipv6</name></property></activation>
+            <properties>
+                <jvm.args.ip>-Djava.net.preferIPv4Stack=false -Djava.net.preferIPv6Addresses=true</jvm.args.ip>
+                <node0>::1</node0>
+            </properties>
         </profile>
     </profiles>
 </project>
