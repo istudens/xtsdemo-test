@@ -9,7 +9,6 @@
         </configuration>
     </container>
     <extension qualifier="graphene">
-        <property name="contextRoot">http://${node0:127.0.0.1}:8080</property>
         <property name="seleniumTimeoutDefault">60000</property>
         <property name="seleniumTimeoutGui">60000</property>
         <property name="seleniumTimeoutAjax">60000</property>
